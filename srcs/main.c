@@ -25,10 +25,12 @@ uintmax_t	parse_ants()
 
 	i = get_next_line(0, &line);
 	li_error(i == -1, "input error");
+	while (*line == ' ')
+		line++;
 	i = 0;
 	while (line[i])
 	{
-		li_error(!ft_isdigit(line[i]), "number of ants not numeric");
+		li_error(!ft_isdigit(line[i]), "forbidden character in the number of ants");
 		i++;
 	}
 	li_error(i > 20, "number of ants too big");
