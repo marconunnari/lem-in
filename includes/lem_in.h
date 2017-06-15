@@ -34,10 +34,12 @@ typedef struct	s_hex
 {
 	t_list		*rooms;
 	t_list		*links;
-	t_room		start;
-	t_room		end;
 }				t_hex;
 
+void		free_hex(t_hex *hex);
+void		li_error(int cond, char *msg, t_hex *hex);
 uintmax_t	parse_ants();
-void		li_error(int cond, char *msg);
+char		*parse_rooms(t_hex *hex);
+void		parse_links(t_hex *hex, char *line);
+t_room		*get_room(t_hex *hex, char *name);
 #endif

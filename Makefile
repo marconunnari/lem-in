@@ -12,7 +12,8 @@ LFT= -L libft -lft
 DOBJS= objs
 DSRCS= srcs
 
-SRCS_FILES= main parse_ants #new#
+SRCS_FILES= main free utils \
+		parse_rooms parse_ants parse_links #new#
 
 SRCS = $(addprefix $(DSRCS)/, $(addsuffix .c, $(SRCS_FILES)))
 OBJS = $(SRCS:$(DSRCS)/%.c=$(DOBJS)/%.o)
