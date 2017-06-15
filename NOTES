@@ -1,1 +1,43 @@
 https://en.wikipedia.org/wiki/Minimum_spanning_tree
+
+t_room:
+	char		*name
+	t_point		*coords;
+	t_list		*ants; //(list of unitmax_t)
+
+t_link:
+	t_room		room1;
+	t_room		room2;
+	uintmax_t	closeness;
+
+rooms
+links
+fullrooms
+
+----- VISUALIZER ------
+foreach room in rooms
+	draw_room(room)
+
+foreach link in link
+	draw_link(link)
+
+negative coords
+drawroom(room)
+	str = name + ":" + antsnumber
+	put_string(room->coords, str)
+
+----- SOLVER -------
+
+foreach room in fullrooms
+	move_ant
+
+move_ant(room)
+	unitmax_t	min_closiness
+	t_link		selected
+	t_list		*antid;
+	foreach link in links
+		if (link->room1 == room)
+			if (!min_closeness || link->closiness < min_closiness)
+				selected = link
+	ant = pop(selected->room1->ants);
+	push(selected->room2->ants++, ant);
