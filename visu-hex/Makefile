@@ -12,8 +12,11 @@ include $(DLIBMLX)/lmlx.mk
 DOBJS= objs
 DSRCS= srcs
 
-SRCS_FILES= main #new#
+LI_SRCS_FILES= li_error free utils parse_rooms parse_ants parse_links #new#
+LI_SRCS = $(addprefix ../$(DSRCS)/, $(addsuffix .c, $(LI_SRCS_FILES)))
+LI_OBJS = $(LI_SRCS:../$(DSRCS)/%.c=$(DOBJS)/%.o)
 
+SRCS_FILES= main fill_pixel fill_rect fill_square draw_links #new#
 SRCS = $(addprefix $(DSRCS)/, $(addsuffix .c, $(SRCS_FILES)))
 OBJS = $(SRCS:$(DSRCS)/%.c=$(DOBJS)/%.o)
 
@@ -31,12 +34,15 @@ $(LIBMLX):
 $(OBJS): $(DOBJS)/%.o: $(DSRCS)/%.c $(HEADER)
 	@$(GCC) $(INCLUDES) -c $< -o $@
 
+$(LI_OBJS): $(DOBJS)/%.o: ../$(DSRCS)/%.c $(HEADER)
+	@$(GCC) $(INCLUDES) -c $< -o $@
+
 start:
 	@echo "making visu-hex..."
 
-$(NAME): start $(LIBMLX) dolibft $(DOBJS) $(OBJS) $(HEADER)
+$(NAME): start $(LIBMLX) dolibft $(DOBJS) $(OBJS) $(LI_OBJS) $(HEADER)
 	@echo "objects done!"
-	@$(GCC) -o $(NAME) $(OBJS) $(LFT) $(LMLX)
+	@$(GCC) -o $(NAME) $(LI_OBJS) $(OBJS) $(LFT) $(LMLX)
 	@echo "visu-hex done!"
 
 clean:

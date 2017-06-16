@@ -14,7 +14,7 @@ static void	parse_link(char *line, t_hex *hex)
 	link = (t_link*)malloc(sizeof(t_link));
 	link->room1 = room1;
 	link->room2 = room2;
-	ft_lstpushnew(&hex->links, link, sizeof(t_link));
+	ft_lstaddnew(&hex->links, link, sizeof(t_link));
 	free(link);
 	ft_arrdel((void**)split);
 }
@@ -23,7 +23,6 @@ void		parse_links(t_hex *hex, char *line)
 {
 	int			i;
 
-	hex->links = NULL;
 	parse_link(line, hex);
 	free(line);
 	while((i = get_next_line(0, &line)) > 0)

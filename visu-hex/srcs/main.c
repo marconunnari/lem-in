@@ -6,7 +6,7 @@
 /*   By: mnunnari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/23 22:00:10 by mnunnari          #+#    #+#             */
-/*   Updated: 2017/06/15 18:19:22 by mnunnari         ###   ########.fr       */
+/*   Updated: 2017/06/16 20:20:05 by mnunnari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,66 @@ int		key_handler(int keycode, void *param)
 	return (0);
 }
 
-static void		render()
+void		draw_rooms(t_image image, t_hex *hex, t_li_info *li_info)
+{
+	t_list		*rooms;
+	t_room		*room;
+	t_point		p;
+	int			color;
+
+	(void)li_info;
+	rooms = hex->rooms;
+	while (rooms)
+	{
+		room = (t_room*)rooms->content;
+		if (room == li_info->start)
+			color = 0x00ff0000;
+		else if (room == li_info->end)
+			color = 0x0000ff00;
+		else
+			color = 0x00ffffff;
+		p.x = room->x * 20;
+		p.y = room->y * 20;
+		fill_square(image, p, 20, color);
+		rooms = rooms->next;
+	}
+}
+
+void		render(t_hex *hex, t_li_info *li_info)
 {
 	void			*mlx;
 	void			*win;
+	void			*imageptr;
+	t_image			image;
 
 	mlx = mlx_init();
 	win = mlx_new_window(mlx, SW, SW, "HEX Visualizer");
-	mlx_string_put (mlx, win, 0, 0, 0x00FFFFFF, "hello visu-hex");
+	imageptr = mlx_new_image(mlx, SW - 1, SW - 1);
+	image.img = mlx_get_data_addr(imageptr,
+			&image.bpp, &image.linesize, &image.endian);
+	draw_rooms(image, hex, li_info);
+	draw_links(image, hex);
+	mlx_put_image_to_window(mlx, win, imageptr, 0, 0);
 	mlx_key_hook(win, key_handler, NULL);
 	mlx_loop(mlx);
 }
 
-int				main()
+int			main(int argc, char **argv)
 {
-	render();
+	uintmax_t	ants;
+	t_hex		*hex;
+	t_li_info	*li_info;
+
+	(void)argv;
+	li_error(argc > 1, "too many arguments", NULL);
+	ants = parse_ants();
+	hex = (t_hex*)malloc(sizeof(t_hex));
+	hex->rooms = NULL;
+	hex->links = NULL;
+	li_info = (t_li_info*)malloc(sizeof(t_li_info));
+	li_info->start = NULL;
+	li_info->end = NULL;
+	parse_links(hex, parse_rooms(hex, li_info));
+	render(hex, li_info);
+	free_hex(hex);
 }

@@ -6,20 +6,11 @@
 /*   By: mnunnari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/14 20:37:42 by mnunnari          #+#    #+#             */
-/*   Updated: 2017/06/15 19:51:34 by mnunnari         ###   ########.fr       */
+/*   Updated: 2017/06/16 17:53:12 by mnunnari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-
-void		li_error(int cond, char *msg, t_hex *hex)
-{
-	if (!cond)
-		return;
-	if (hex)
-		free_hex(hex);
-	ft_error(msg, 1);
-}
 
 void		print_room(t_list *lst)
 {
@@ -45,16 +36,25 @@ int			main(int argc, char **argv)
 {
 	uintmax_t	ants;
 	t_hex		*hex;
+	t_li_info	*li_info;
 
 	(void)argv;
 	li_error(argc > 1, "too many arguments", NULL);
 	ants = parse_ants();
 	hex = (t_hex*)malloc(sizeof(t_hex));
-	parse_links(hex, parse_rooms(hex));
+	hex->rooms = NULL;
+	hex->links = NULL;
+	li_info = (t_li_info*)malloc(sizeof(t_li_info));
+	li_info->start = NULL;
+	li_info->end = NULL;
+	parse_links(hex, parse_rooms(hex, li_info));
+
 	ft_printfnl("ants: %ju", ants);
 	ft_putendl("rooms:");
 	ft_lstiter(hex->rooms, print_room);
 	ft_putendl("links:");
 	ft_lstiter(hex->links, print_link);
+	ft_printfnl("start: %s", li_info->start->name);
+	ft_printfnl("end: %s", li_info->end->name);
 	free_hex(hex);
 }

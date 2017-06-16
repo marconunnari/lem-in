@@ -12,7 +12,7 @@ LFT= -L libft -lft
 DOBJS= objs
 DSRCS= srcs
 
-SRCS_FILES= main free utils \
+SRCS_FILES= main free utils li_error \
 		parse_rooms parse_ants parse_links #new#
 
 SRCS = $(addprefix $(DSRCS)/, $(addsuffix .c, $(SRCS_FILES)))
