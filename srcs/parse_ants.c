@@ -27,6 +27,7 @@ uintmax_t	parse_ants()
 	li_error(i == -1, "input error", NULL);
 	while (*line == ' ')
 		line++;
+	li_error(ft_strequ(line, "0"), "ants must be more than 0", NULL);
 	i = 0;
 	while (line[i])
 	{

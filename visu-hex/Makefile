@@ -16,7 +16,7 @@ LI_SRCS_FILES= li_error free utils parse_rooms parse_ants parse_links #new#
 LI_SRCS = $(addprefix ../$(DSRCS)/, $(addsuffix .c, $(LI_SRCS_FILES)))
 LI_OBJS = $(LI_SRCS:../$(DSRCS)/%.c=$(DOBJS)/%.o)
 
-SRCS_FILES= main fill_pixel fill_rect fill_square draw_links #new#
+SRCS_FILES= main fill_pixel fill_rect fill_square draw_links parse_turns #new#
 SRCS = $(addprefix $(DSRCS)/, $(addsuffix .c, $(SRCS_FILES)))
 OBJS = $(SRCS:$(DSRCS)/%.c=$(DOBJS)/%.o)
 

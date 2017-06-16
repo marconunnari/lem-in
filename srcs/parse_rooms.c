@@ -31,6 +31,7 @@ static int	parse_room(char *line, t_hex *hex)
 	room->name = ft_strdup(split[0]);
 	room->x = ft_atoi(split[1]);
 	room->y = ft_atoi(split[2]);
+	room->ant = 0;
 	ft_lstaddnew(&hex->rooms, room, sizeof(t_room));
 	free(room);
 	ft_arrdel((void**)split);

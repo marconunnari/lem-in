@@ -27,6 +27,8 @@ void		parse_links(t_hex *hex, char *line)
 	free(line);
 	while((i = get_next_line(0, &line)) > 0)
 	{
+		if (line[0] == '\0')
+			break;
 		if (line[0] == '#')
 			continue;
 		parse_link(line, hex);

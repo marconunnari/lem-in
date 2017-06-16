@@ -20,7 +20,7 @@ typedef struct	s_room
 	char		*name;
 	int			x;
 	int			y;
-	t_list		*ants;
+	uintmax_t	ant;
 }				t_room;
 
 typedef struct	s_link

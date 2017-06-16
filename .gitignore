@@ -1,2 +1,4 @@
 lem-in
 *.o
+visu-hex/visu-hex
+visu-hex/tests

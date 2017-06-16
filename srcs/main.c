@@ -18,8 +18,8 @@ void		print_room(t_list *lst)
 
 	room = (t_room*)lst->content;
 	if (room)
-		ft_printfnl("  name: %s, x %d, y %d", room->name,
-				room->x, room->y);
+		ft_printfnl("  name: %s, x %d, y %d ant %ju", room->name,
+				room->x, room->y, room->ant);
 }
 
 void		print_link(t_list *lst)
@@ -48,6 +48,7 @@ int			main(int argc, char **argv)
 	li_info->start = NULL;
 	li_info->end = NULL;
 	parse_links(hex, parse_rooms(hex, li_info));
+	li_info->start->ant = ants;
 
 	ft_printfnl("ants: %ju", ants);
 	ft_putendl("rooms:");

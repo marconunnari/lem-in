@@ -18,6 +18,12 @@
 
 # define SW 800
 
+typedef	struct	s_move
+{
+	uintmax_t		ant;
+	char			*room;
+}				t_move;
+
 typedef	struct	s_point
 {
 	int			x;
@@ -45,4 +51,5 @@ void		fill_square(t_image image, t_point p1, size_t size, int color);
 void		fill_rect(t_image image, t_point p1, t_point p2, int color);
 void		fill_pixel(t_image img, int x, int y, int color);
 void		draw_links(t_image image, t_hex *hex);
+t_list		*parse_turns();
 #endif

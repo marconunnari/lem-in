@@ -26,6 +26,37 @@ drawroom(room)
 	str = name + ":" + antsnumber
 	put_string(room->coords, str)
 
+move
+	ant
+	room
+
+turn: list of moves
+turns
+
+foreach turn in turns
+	foreach move in turn
+		if move->room != start && move->room != end
+			if move->room->ant != 0
+				error
+		room_ant = get_ant_room(move->ant)
+		if (!room_ant)
+			error
+		if room_ant == start
+			room_ant->ant--
+		else
+			room_ant->ant = 0
+		move->room->ant = ant
+
+get_ant_room(int ant)
+	if ant > tot_ants
+		return NULL
+	for each room in rooms
+		if room->ant = ant
+			return (room)
+	if start->ant > ant
+		return (start)
+	return (end)
+
 ----- SOLVER -------
 
 foreach room in fullrooms
