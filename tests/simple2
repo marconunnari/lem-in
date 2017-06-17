@@ -1,0 +1,16 @@
+4
+##start
+start 0 0
+##end
+end 10 0
+dead0 0 2
+dead1 2 2
+mid0  2 0
+mid1  4 0
+mid2 6 0
+start-dead0
+start-mid0
+mid0-dead0
+start-mid1
+mid1-mid2
+mid2-end
