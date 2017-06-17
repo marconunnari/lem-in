@@ -12,14 +12,6 @@
 
 #include "visu_hex.h"
 
-int			key_handler(int keycode, void *param)
-{
-	(void)param;
-	if (keycode == 53 || keycode == 65307)
-		exit(0);
-	return (0);
-}
-
 int			is_special(t_room *room, t_li_info *li_info)
 {
 	return (room == li_info->start || room == li_info->end);
@@ -45,53 +37,39 @@ t_room		*get_ant_room(t_hex *hex, t_li_info *li_info, uintmax_t ant)
 	return (NULL);
 }
 
-int			draw_moves(void *param)
+int			key_handler(int keycode, void *param)
 {
 	t_hook_moves	p;
 	t_list			*turns;
 	t_list			*turn;
 	t_move			*move;
 	t_room			*start_room;
+	static int		i;
+	static int		j;
 
-	ft_printfnl("debug");
+	if (keycode == 53 || keycode == 65307)
+		exit(0);
+	if (keycode != 65362)
+		return (0);
 	p = *((t_hook_moves*)(param));
-	turns = p.turns;
-	while(turns)
-	{
-		turn = (t_list*)turns->content;
-		while (turn)
-		{
-			move = (t_move*)turn->content;
-			ft_printfnl("move ant %ju to room %s", move->ant, move->dest->name);
-			if (!is_special(move->dest, p.li_info))
-				li_error(move->dest->ant != 0, "destination room must be empty", NULL);
-			start_room = get_ant_room(p.hex, p.li_info, move->ant);
-			li_error(start_room == NULL, "ant doesn't exist", NULL);
-			ft_printfnl("start_room %s", start_room->name);
-			start_room->ant -= move->ant;
-			//draw_room(p.image, p.li_info, start_room);
-			draw_room(p.image, p.li_info, move->dest);
-			mlx_put_image_to_window(p.mlx, p.win, p.imageptr, 0, 0);
-			move->dest->ant += move->ant;
-			turn = turn->next;
-			ft_printfnl("debug");
-		}
-		turns = turns->next;
-	}
-	return (0);
-}
-/*
-void		draw_turns(t_hook_moves hook_moves)
-{
-	pthread_t		tid;
-	pthread_create(&tid, NULL, draw_moves, &hook_moves);
-}
-*/
-
-int			hook(void *param)
-{
-	(void)param;
-ft_printfnl("debug");
+	turns = ft_lstat(p.turns, i);
+	if (!turns)
+		exit(0);
+	turn = ft_lstat((t_list*)turns->content, j);
+	move = (t_move*)turn->content;
+	ft_printfnl("move ant %ju to room %s", move->ant, move->dest->name);
+	if (!is_special(move->dest, p.li_info))
+		li_error(move->dest->ant != 0, "destination room must be empty", NULL);
+	start_room = get_ant_room(p.hex, p.li_info, move->ant);
+	li_error(start_room == NULL, "ant doesn't exist", NULL);
+	ft_printfnl("start_room %s", start_room->name);
+	start_room->ant -= move->ant;
+	move->dest->ant += move->ant;
+	draw_room(p.image, p.li_info, start_room);
+	draw_room(p.image, p.li_info, move->dest);
+	mlx_put_image_to_window(p.mlx, p.win, p.imageptr, 0, 0);
+	j = turn->next ? j + 1 : 0;
+	i = turn->next ? i : i + 1;
 	return (0);
 }
 
@@ -105,7 +83,6 @@ void		render(t_hex *hex, t_li_info *li_info, t_list *turns)
 
 	mlx = mlx_init();
 	win = mlx_new_window(mlx, SW, SW, "HEX Visualizer");
-	mlx_key_hook(win, key_handler, NULL);
 	imageptr = mlx_new_image(mlx, SW - 1, SW - 1);
 	image.img = mlx_get_data_addr(imageptr,
 			&image.bpp, &image.linesize, &image.endian);
@@ -119,8 +96,7 @@ void		render(t_hex *hex, t_li_info *li_info, t_list *turns)
 	hook_moves.hex = hex;
 	hook_moves.li_info = li_info;
 	hook_moves.turns = turns;
-//	draw_turns(hook_moves);
-	mlx_loop_hook(win, hook, NULL);
+	mlx_key_hook(win, key_handler, &hook_moves);
 	mlx_loop(mlx);
 }
 
