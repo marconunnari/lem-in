@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_turns.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mnunnari <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/06/17 19:29:58 by mnunnari          #+#    #+#             */
+/*   Updated: 2017/06/17 19:36:24 by mnunnari         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "visu_hex.h"
 
-static t_move		*parse_move(char *str)
+static t_move		*parse_move(char *str, t_hex *hex)
 {
 	char	**split;
 	t_move	*move;
@@ -12,12 +24,13 @@ static t_move		*parse_move(char *str)
 	li_error(!ft_isuintmax(split[0]), "ant number wrong", NULL);
 	move = (t_move*)malloc(sizeof(t_move));
 	move->ant = ft_atouimax(split[0]);
-	move->room = ft_strdup(split[1]);
+	move->dest = get_room(hex, split[1]);
+	li_error(move->dest == NULL, "destination room doesn't exist", NULL);
 	ft_arrdel((void**)split);
 	return (move);
 }
 
-static t_list	*parse_turn(char *line)
+static t_list	*parse_turn(char *line, t_hex *hex)
 {
 	int	i;
 	char	**split;
@@ -30,7 +43,7 @@ static t_list	*parse_turn(char *line)
 	i = 0;
 	while (split[i])
 	{
-		move = parse_move(split[i++]);
+		move = parse_move(split[i++], hex);
 		ft_lstpushnew(&turn, move, sizeof(t_move));
 		free(move);
 	}
@@ -38,7 +51,7 @@ static t_list	*parse_turn(char *line)
 	return (turn);
 }
 
-t_list		*parse_turns()
+t_list		*parse_turns(t_hex *hex)
 {
 	int			i;
 	t_list			*turns;
@@ -50,7 +63,7 @@ t_list		*parse_turns()
 	{
 		if (line[0] == '#')
 			continue;
-		turn = parse_turn(line);
+		turn = parse_turn(line, hex);
 		ft_lstpushnew(&turns, turn, sizeof(t_list));
 		free(turn);
 		free(line);
