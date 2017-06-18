@@ -12,13 +12,13 @@
 
 NAME= visu-hex
 GCC= gcc -Wall -Wextra -Werror
-INCLUDES= -I includes -I ../libft/includes -I minilibx -I ../includes
+INCLUDES= -I includes -I ../libft/includes -I ../minilibx -I ../includes
 HEADER= includes/visu_hex.h
 
 LIBFT= ../libft/libft.a
 LFT= -L ../libft -lft
 
-DLIBMLX= minilibx
+DLIBMLX= ../minilibx
 include $(DLIBMLX)/lmlx.mk
 
 DOBJS= objs
@@ -59,7 +59,7 @@ $(NAME): start $(LIBMLX) dolibft $(DOBJS) $(OBJS) $(LI_OBJS) $(HEADER)
 	@echo "visu-hex done!"
 
 clean:
-	@make clean -C minilibx
+	@make clean -C $(DLIBMLX)
 	@rm -rf $(DOBJS)
 
 fclean: clean

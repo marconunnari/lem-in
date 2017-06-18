@@ -2,5 +2,5 @@
 	path = libft
 	url = https://github.com/marconunnari/libft.git
 [submodule "visu-hex/minilibx"]
-	path = visu-hex/minilibx
+	path = minilibx
 	url = https://github.com/marconunnari/minilibx
