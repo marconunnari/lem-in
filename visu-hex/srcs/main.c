@@ -6,7 +6,7 @@
 /*   By: mnunnari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/23 22:00:10 by mnunnari          #+#    #+#             */
-/*   Updated: 2017/06/17 20:58:59 by mnunnari         ###   ########.fr       */
+/*   Updated: 2017/06/18 19:04:13 by mnunnari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int			key_handler(int keycode, void *param)
 
 	if (keycode == 53 || keycode == 65307)
 		exit(0);
-	if (keycode != 65362)
+	if (keycode != 126 && keycode != 65362)
 		return (0);
 	p = *((t_hook_moves*)(param));
 	turns = ft_lstat(p.turns, i);
@@ -57,12 +57,10 @@ int			key_handler(int keycode, void *param)
 		exit(0);
 	turn = ft_lstat((t_list*)turns->content, j);
 	move = (t_move*)turn->content;
-	ft_printfnl("move ant %ju to room %s", move->ant, move->dest->name);
 	if (!is_special(move->dest, p.li_info))
 		li_error(move->dest->ant != 0, "destination room must be empty", NULL);
 	start_room = get_ant_room(p.hex, p.li_info, move->ant);
 	li_error(start_room == NULL, "ant doesn't exist", NULL);
-	ft_printfnl("start_room %s", start_room->name);
 	start_room->ant -= move->ant;
 	move->dest->ant += move->ant;
 	draw_room(p.image, p.li_info, start_room);
@@ -118,7 +116,6 @@ int			main(int argc, char **argv)
 	li_info->end = NULL;
 	parse_links(hex, parse_rooms(hex, li_info));
 	li_info->start->ant = (ants * (ants + 1)) / 2;
-	ft_printfnl("debug %ju", li_info->start->ant);
 	turns = parse_turns(hex);
 	render(hex, li_info, turns);
 	free_hex(hex);
