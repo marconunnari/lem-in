@@ -42,7 +42,6 @@ void		do_link(t_hook_param p, t_point point)
 {
 	static t_room		*old_room;
 	t_room		*room;
-	t_point		point2;
 	t_link		*link;
 
 	room = get_room_by_coords(g_rooms, point.x, point.y);
@@ -54,8 +53,6 @@ void		do_link(t_hook_param p, t_point point)
 		old_room = room;
 		return ;
 	}
-	point2.x = old_room->x;
-	point2.y = old_room->y;
 	link = (t_link*)malloc(sizeof(t_link));
 	link->room1 = old_room;
 	link->room2 = room;
@@ -116,7 +113,7 @@ int			key_handler(int keycode, void *param)
 	(void)param;
 	if (keycode == 53 || keycode == 65307)
 		exit(0);
-	if (keycode == 37 && g_mode == ROOMS)
+	if ((keycode == 37 || keycode == 108) && g_mode == ROOMS)
 		g_mode = LINKS;
 	return (0);
 }
