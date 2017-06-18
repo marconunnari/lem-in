@@ -6,7 +6,7 @@
 /*   By: mnunnari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/23 22:00:10 by mnunnari          #+#    #+#             */
-/*   Updated: 2017/06/18 19:04:13 by mnunnari         ###   ########.fr       */
+/*   Updated: 2017/06/18 21:47:52 by mnunnari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,9 @@ void		render(t_hex *hex, t_li_info *li_info, t_list *turns)
 	imageptr = mlx_new_image(mlx, SW - 1, SW - 1);
 	image.img = mlx_get_data_addr(imageptr,
 			&image.bpp, &image.linesize, &image.endian);
-	draw_rooms(image, hex, li_info);
+ft_printfnl("debug");
 	draw_links(image, hex);
+	draw_rooms(image, hex, li_info);
 	mlx_put_image_to_window(mlx, win, imageptr, 0, 0);
 	hook_moves.mlx = mlx;
 	hook_moves.win = win;

@@ -6,7 +6,7 @@
 /*   By: mnunnari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/17 16:58:21 by mnunnari          #+#    #+#             */
-/*   Updated: 2017/06/17 16:58:28 by mnunnari         ###   ########.fr       */
+/*   Updated: 2017/06/18 21:48:42 by mnunnari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ void		draw_room(t_image image, t_li_info *li_info, t_room *room)
 	t_point		p;
 
 	if (room->ant > 0)
-			color = 0x00ff0000;
+		color = 0x00ff0000;
 	else if (room == li_info->end)
 		color = 0x0000ff00;
 	else
-		color = 0x00ffff00;
-	p.x = room->x * 20;
-	p.y = room->y * 20 + 20;
+		color = 0x00ffffff;
+	p.x = room->x;
+	p.y = room->y;
 	fill_square(image, p, 20, color);
 }
 

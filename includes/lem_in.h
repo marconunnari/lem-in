@@ -6,7 +6,7 @@
 /*   By: mnunnari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/15 18:32:12 by mnunnari          #+#    #+#             */
-/*   Updated: 2017/06/16 17:26:02 by mnunnari         ###   ########.fr       */
+/*   Updated: 2017/06/18 21:14:19 by mnunnari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct	s_link
 {
 	t_room		*room1;
 	t_room		*room2;
-	uintmax_t	weight;
+	uintmax_t	honey;
 }				t_link;
 
 typedef struct	s_hex

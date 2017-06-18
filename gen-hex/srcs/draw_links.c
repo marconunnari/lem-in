@@ -6,11 +6,11 @@
 /*   By: mnunnari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 19:49:15 by mnunnari          #+#    #+#             */
-/*   Updated: 2017/06/18 21:48:31 by mnunnari         ###   ########.fr       */
+/*   Updated: 2017/06/18 21:38:19 by mnunnari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "visu_hex.h"
+#include "gen_hex.h"
 
 void		draw_link(t_image image, t_link *link)
 {
@@ -23,18 +23,4 @@ void		draw_link(t_image image, t_link *link)
 	p2.y = link->room2->y + 10;
 	fill_rect(image, p1, p2, 0x00FFFFFF);
 	return ;
-}
-
-void		draw_links(t_image image, t_hex *hex)
-{
-	t_list		*links;
-	t_link		*link;
-
-	links = hex->links;
-	while (links)
-	{
-		link = (t_link*)links->content;
-		draw_link(image, link);
-		links = links->next;
-	}
 }
