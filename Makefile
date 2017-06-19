@@ -19,6 +19,10 @@ SRCS = $(addprefix $(DSRCS)/, $(addsuffix .c, $(SRCS_FILES)))
 OBJS = $(SRCS:$(DSRCS)/%.c=$(DOBJS)/%.o)
 
 all: $(NAME)
+	@make -C gen-hex
+	@cp gen-hex/gen-hex gen_hex
+	@make -C visu-hex
+	@cp visu-hex/visu-hex visu_hex
 
 $(DOBJS):
 	@mkdir -p $(DOBJS)
