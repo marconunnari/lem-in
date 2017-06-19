@@ -6,7 +6,7 @@
 /*   By: mnunnari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/17 19:29:58 by mnunnari          #+#    #+#             */
-/*   Updated: 2017/06/17 19:36:24 by mnunnari         ###   ########.fr       */
+/*   Updated: 2017/06/19 17:56:43 by mnunnari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,5 @@ t_list		*parse_turns(t_hex *hex)
 	}
 	free(line);
 	li_error(i == -1, "input error", NULL);
-	ft_putendl("");
 	return (turns);
 }

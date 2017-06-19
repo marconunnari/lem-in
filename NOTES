@@ -1,74 +1,54 @@
 https://en.wikipedia.org/wiki/Minimum_spanning_tree
 
-t_room:
-	char		*name
-	t_point		*coords;
-	t_list		*ants; //(list of unitmax_t)
-
-t_link:
-	t_room		room1;
-	t_room		room2;
-	uintmax_t	closeness;
-
-rooms
-links
-fullrooms
-
------ VISUALIZER ------
-foreach room in rooms
-	draw_room(room)
-
-foreach link in link
-	draw_link(link)
-
-negative coords
-drawroom(room)
-	str = name + ":" + antsnumber
-	put_string(room->coords, str)
-
-move
-	ant
-	room
-
-turn: list of moves
-turns
-
-foreach turn in turns
-	foreach move in turn
-		if move->room != start && move->room != end
-			if move->room->ant != 0
-				error
-		room_ant = get_ant_room(move->ant)
-		if (!room_ant)
-			error
-		if room_ant == start
-			room_ant->ant--
+put_cinnamon(root, cinnamon)
+	foreach link in links_from(root)
+		if (link->cinnamon == 0 || link->cinnamon > cinnamon)
+			link->cinnamon = cinnamon
+		if (link->room1 != root)
+			putcinnamon(link->room1, cinnamon++)
 		else
-			room_ant->ant = 0
-		move->room->ant = ant
+			putcinnamon(link->room2, cinnamon++)
 
-get_ant_room(int ant)
-	if ant > tot_ants
-		return NULL
-	for each room in rooms
-		if room->ant = ant
-			return (room)
-	if start->ant > ant
-		return (start)
-	return (end)
+get_other_room(link, room)
+	if (link->room1 != room)
+		return link->room1
+	else
+		return link->room2
 
------ SOLVER -------
+get_next_room(room)
+	uintmax_t	min_cinnamon
+	t_room		*next;
 
-foreach room in fullrooms
-	move_ant
+	foreach link in links_from(room)
+		if (get_other_room(link, room)->ant = 0 &&
+			(!min_cinnamon || link->cinnamon < min_cinnamon))
+			next = get_other_room(link, room);
+
+move_ant_from_start(newfullrooms)
+	next = get_next_room(start)
+	start->ant -= li_info.start_ant;
+	next->ant += li_info.start_ant;
+	if (start->ant != 0)
+		newfullrooms.add(start)
+		li_info.start_ant++;
+	newfullrooms.add(next)
 
 move_ant(room)
-	unitmax_t	min_closiness
-	t_link		selected
-	t_list		*antid;
-	foreach link in links
-		if (link->room1 == room)
-			if (!min_closeness || link->closiness < min_closiness)
-				selected = link
-	ant = pop(selected->room1->ants);
-	push(selected->room2->ants++, ant);
+	next = get_next_room(room)
+	next->ant += room->ant;
+	room->ant = 0;
+	newfullrooms.add(next)
+
+move_ants(fullrooms)
+	newfullrooms = NULL
+	foreach room in fullrooms
+		if (room == li_info.start)
+			move_ant_from_start(&newfullrooms)
+		else
+			move_ant(room, &newfullrooms)
+	move_ants(newfullrooms)
+
+put_cinnamon(end, 1)
+li_info.start_ant = 1;
+move_ants(ft_lstnew(start, sizeof(t_room))
+

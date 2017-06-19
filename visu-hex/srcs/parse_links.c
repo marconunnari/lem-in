@@ -6,7 +6,7 @@
 /*   By: mnunnari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/19 18:03:40 by mnunnari          #+#    #+#             */
-/*   Updated: 2017/06/19 18:05:11 by mnunnari         ###   ########.fr       */
+/*   Updated: 2017/06/19 18:06:34 by mnunnari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ void		parse_links(t_hex *hex, char *line)
 	free(line);
 	while((i = get_next_line(0, &line)) > 0)
 	{
+		if (line[0] == '\0')
+			break;
 		if (line[0] == '#')
 			continue;
 		parse_link(line, hex);
