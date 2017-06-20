@@ -1,5 +1,12 @@
 https://en.wikipedia.org/wiki/Minimum_spanning_tree
 
+links_from(room)
+	for link in links
+		if ((link->room1 == room && link->room2 != room) ||
+			(link->room1 != room && link->room2 == room))
+			return (link)
+	return (NULL)
+
 put_cinnamon(root, cinnamon)
 	foreach link in links_from(root)
 		if (link->cinnamon == 0 || link->cinnamon > cinnamon)
@@ -33,7 +40,7 @@ move_ant_from_start(newfullrooms)
 		li_info.start_ant++;
 	newfullrooms.add(next)
 
-move_ant(room)
+move_ant(room, newfullrooms)
 	next = get_next_room(room)
 	next->ant += room->ant;
 	room->ant = 0;
@@ -46,9 +53,9 @@ move_ants(fullrooms)
 			move_ant_from_start(&newfullrooms)
 		else
 			move_ant(room, &newfullrooms)
+	free_rooms(fullrooms)
 	move_ants(newfullrooms)
 
 put_cinnamon(end, 1)
 li_info.start_ant = 1;
 move_ants(ft_lstnew(start, sizeof(t_room))
-

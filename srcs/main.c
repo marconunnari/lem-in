@@ -6,21 +6,11 @@
 /*   By: mnunnari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/14 20:37:42 by mnunnari          #+#    #+#             */
-/*   Updated: 2017/06/16 17:53:12 by mnunnari         ###   ########.fr       */
+/*   Updated: 2017/06/20 22:27:42 by mnunnari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-
-void		print_room(t_list *lst)
-{
-	t_room	*room;
-
-	room = (t_room*)lst->content;
-	if (room)
-		ft_printfnl("  name: %s, x %d, y %d ant %ju", room->name,
-				room->x, room->y, room->ant);
-}
 
 void		print_link(t_list *lst)
 {
@@ -28,8 +18,20 @@ void		print_link(t_list *lst)
 
 	link = (t_link*)lst->content;
 	if (link)
-		ft_printfnl("  room1: %s, room2: %s",
-			link->room1->name, link->room2->name);
+		ft_printfnl("  room1: %s, room2: %s cinnamon %ju",
+			link->room1->name, link->room2->name, link->cinnamon);
+}
+
+void		print_room(t_list *lst)
+{
+	t_room	*room;
+
+	room = (t_room*)lst->content;
+	if (room)
+		ft_printfnl("  name: %s, x %d, y %d ant %ju links:", room->name,
+				room->x, room->y, room->ant);
+	ft_lstiter(room->links, print_link);
+	ft_putendl("");
 }
 
 int			main(int argc, char **argv)
@@ -49,13 +51,13 @@ int			main(int argc, char **argv)
 	li_info->end = NULL;
 	parse_links(hex, parse_rooms(hex, li_info));
 	li_info->start->ant = ants;
-
+	li_solve(hex, li_info);
 	ft_printfnl("ants: %ju", ants);
+	ft_printfnl("start: %s", li_info->start->name);
+	ft_printfnl("end: %s", li_info->end->name);
 	ft_putendl("rooms:");
 	ft_lstiter(hex->rooms, print_room);
 	ft_putendl("links:");
 	ft_lstiter(hex->links, print_link);
-	ft_printfnl("start: %s", li_info->start->name);
-	ft_printfnl("end: %s", li_info->end->name);
 	free_hex(hex);
 }

@@ -6,7 +6,7 @@
 /*   By: mnunnari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 17:11:53 by mnunnari          #+#    #+#             */
-/*   Updated: 2017/06/16 17:26:27 by mnunnari         ###   ########.fr       */
+/*   Updated: 2017/06/20 22:16:50 by mnunnari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static int	parse_room(char *line, t_hex *hex)
 	room->x = ft_atoi(split[1]);
 	room->y = ft_atoi(split[2]);
 	room->ant = 0;
+	room->links = NULL;
 	ft_lstaddnew(&hex->rooms, room, sizeof(t_room));
 	free(room);
 	ft_arrdel((void**)split);

@@ -6,7 +6,7 @@
 /*   By: mnunnari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/15 18:32:12 by mnunnari          #+#    #+#             */
-/*   Updated: 2017/06/18 21:14:19 by mnunnari         ###   ########.fr       */
+/*   Updated: 2017/06/20 22:16:31 by mnunnari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,14 @@ typedef struct	s_room
 	int			x;
 	int			y;
 	uintmax_t	ant;
+	t_list		*links;
 }				t_room;
 
 typedef struct	s_link
 {
 	t_room		*room1;
 	t_room		*room2;
-	uintmax_t	honey;
+	uintmax_t	cinnamon;
 }				t_link;
 
 typedef struct	s_hex
@@ -53,4 +54,5 @@ uintmax_t	parse_ants();
 char		*parse_rooms(t_hex *hex, t_li_info *li_info);
 void		parse_links(t_hex *hex, char *line);
 t_room		*get_room(t_hex *hex, char *name);
+void			li_solve(t_hex *hex, t_li_info *li_info);
 #endif
