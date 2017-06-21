@@ -6,7 +6,7 @@
 /*   By: mnunnari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/15 18:32:12 by mnunnari          #+#    #+#             */
-/*   Updated: 2017/06/20 22:16:31 by mnunnari         ###   ########.fr       */
+/*   Updated: 2017/06/21 21:09:02 by mnunnari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ typedef struct	s_room
 	int			x;
 	int			y;
 	uintmax_t	ant;
-	t_list		*links;
+	uintmax_t	distance;
+	t_list		*neighbours;
 }				t_room;
 
 typedef struct	s_link
 {
 	t_room		*room1;
 	t_room		*room2;
-	uintmax_t	cinnamon;
 }				t_link;
 
 typedef struct	s_hex
@@ -41,6 +41,7 @@ typedef struct	s_li_info
 {
 	t_room		*start;
 	t_room		*end;
+	uintmax_t	start_ant;
 }				t_li_info;
 
 typedef enum	e_cmd

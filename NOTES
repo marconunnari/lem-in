@@ -1,35 +1,14 @@
-https://en.wikipedia.org/wiki/Minimum_spanning_tree
-
-links_from(room)
-	for link in links
-		if ((link->room1 == room && link->room2 != room) ||
-			(link->room1 != room && link->room2 == room))
-			return (link)
-	return (NULL)
-
-put_cinnamon(root, cinnamon)
-	foreach link in links_from(root)
-		if (link->cinnamon == 0 || link->cinnamon > cinnamon)
-			link->cinnamon = cinnamon
-		if (link->room1 != root)
-			putcinnamon(link->room1, cinnamon++)
-		else
-			putcinnamon(link->room2, cinnamon++)
-
-get_other_room(link, room)
-	if (link->room1 != room)
-		return link->room1
-	else
-		return link->room2
-
 get_next_room(room)
-	uintmax_t	min_cinnamon
+	uintmax_t	min_distance
 	t_room		*next;
 
-	foreach link in links_from(room)
-		if (get_other_room(link, room)->ant = 0 &&
-			(!min_cinnamon || link->cinnamon < min_cinnamon))
-			next = get_other_room(link, room);
+	min_distance = 0
+	next = NULL;
+	foreach neighbour in room->neighbours
+		if (neighbour->ant == 0)
+			if (min_distance == 0 || neighbour->distance < min_distance)
+				next = neighbour;
+	return next;
 
 move_ant_from_start(newfullrooms)
 	next = get_next_room(start)
