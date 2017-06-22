@@ -18,12 +18,6 @@
 
 # define SW 800
 
-typedef	struct	s_move
-{
-	uintmax_t		ant;
-	t_room			*dest;
-}				t_move;
-
 typedef	struct	s_hook_moves
 {
 	void		*mlx;

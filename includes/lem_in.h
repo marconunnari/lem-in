@@ -44,6 +44,12 @@ typedef struct	s_li_info
 	uintmax_t	start_ant;
 }				t_li_info;
 
+typedef	struct	s_move
+{
+	uintmax_t		ant;
+	t_room			*dest;
+}				t_move;
+
 typedef enum	e_cmd
 {
 	NONE, START, END

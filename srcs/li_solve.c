@@ -24,7 +24,7 @@ void			set_neighbours_distances(t_room *room, t_list **queue)
 		if (neighbour->distance == 0)
 		{
 			neighbour->distance = room->distance + 1;
-			ft_lstaddnewsimple(queue, neighbour);
+			ft_lstaddnew(queue, neighbour, 0);
 		}
 		neighbours = neighbours->next;
 	}
@@ -38,7 +38,7 @@ void			set_distances(t_room *end)
 
 	queue = NULL;
 	end->distance = 1;
-	ft_lstaddnewsimple(&queue, end);
+	ft_lstaddnew(&queue, end, 0);
 	while (queue)
 	{
 		currentlst = ft_lstpop(&queue);
@@ -54,6 +54,6 @@ void			li_solve(t_hex *hex, t_li_info *li_info)
 	(void)hex;
 	set_distances(li_info->end);
 	startfullrooms = NULL;
-	ft_lstaddnewsimple(&startfullrooms, li_info->start);
+	ft_lstaddnew(&startfullrooms, li_info->start, 0);
 	move_ants(startfullrooms, *li_info);
 }
