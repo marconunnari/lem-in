@@ -6,7 +6,7 @@
 /*   By: mnunnari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/14 20:37:42 by mnunnari          #+#    #+#             */
-/*   Updated: 2017/06/22 20:08:11 by mnunnari         ###   ########.fr       */
+/*   Updated: 2017/06/22 22:35:37 by mnunnari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,14 @@ void		print_room(t_list *lst)
 	ft_printfnl("%s %d %d", room->name, room->x, room->y);
 }
 
+void		print_hex(uintmax_t ants, t_hex *hex)
+{
+	ft_printfnl("%ju", ants);
+	ft_lstiter(hex->rooms, print_room);
+	ft_lstiter(hex->links, print_link);
+	ft_putchar('\n');
+}
+
 int			main(int argc, char **argv)
 {
 	uintmax_t	ants;
@@ -55,10 +63,6 @@ int			main(int argc, char **argv)
 	li_info->start_ant = 1;
 	g_start = li_info->start;
 	g_end = li_info->end;
-	ft_printfnl("%ju", ants);
-	ft_lstiter(hex->rooms, print_room);
-	ft_lstiter(hex->links, print_link);
-	ft_putchar('\n');
-	li_solve(hex, li_info);
+	li_solve(ants, hex, li_info);
 	free_hex(hex);
 }

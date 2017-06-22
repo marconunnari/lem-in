@@ -49,21 +49,23 @@ void			move_ant_from_start(t_btree **newfullrooms, t_li_info *li_info)
 	li_info->start_ant += 1;
 	if (next != li_info->end)
 		ft_btreeaddnew(newfullrooms, next, 0, cmprooms);
-	ft_printf("L%ju-%s ", next->ant, next->name);
+	ft_printf("L%ju-%s ", li_info->start_ant - 1, next->name);
 }
 
 void			move_ant(t_room *room, t_btree **newfullrooms, t_li_info *li_info)
 {
 	t_room		*next;
+	uintmax_t	ant;
 
 	next = get_next_room(room, li_info);
 	if (!next)
 		return ft_btreeaddnew(newfullrooms, room, 0, cmprooms);
+	ant = room->ant;
 	next->ant = room->ant;
 	room->ant = 0;
 	if (next != li_info->end)
 		ft_btreeaddnew(newfullrooms, next, 0, cmprooms);
-	ft_printf("L%ju-%s ", next->ant, next->name);
+	ft_printf("L%ju-%s ", ant, next->name);
 }
 
 void			move_ants_from_fullroom(t_btree *fullroom, void *param)

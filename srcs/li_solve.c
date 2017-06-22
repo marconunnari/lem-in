@@ -6,11 +6,13 @@
 /*   By: mnunnari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/20 21:13:56 by mnunnari          #+#    #+#             */
-/*   Updated: 2017/06/22 21:14:36 by mnunnari         ###   ########.fr       */
+/*   Updated: 2017/06/22 22:36:48 by mnunnari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+
+int		g_there_is_path = 0;
 
 void			set_neighbours_distances(t_room *room, t_list **queue)
 {
@@ -30,7 +32,7 @@ void			set_neighbours_distances(t_room *room, t_list **queue)
 	}
 }
 
-void			set_distances(t_room *end)
+void			set_distances(t_room *end, t_li_info *li_info)
 {
 	t_list		*queue;
 	t_list		*currentlst;
@@ -43,16 +45,20 @@ void			set_distances(t_room *end)
 	{
 		currentlst = ft_lstpop(&queue);
 		room = (t_room*)currentlst->content;
+		if (room == li_info->start)
+			g_there_is_path = 1;
 		set_neighbours_distances(room, &queue);
 	}
 }
 
-void			li_solve(t_hex *hex, t_li_info *li_info)
+void			li_solve(uintmax_t ants, t_hex *hex, t_li_info *li_info)
 {
 	t_btree		*startfullrooms;
 
 	(void)hex;
-	set_distances(li_info->end);
+	set_distances(li_info->end, li_info);
 	startfullrooms = ft_btreenew(li_info->start, 0);
+	li_error(!g_there_is_path, "start and end rooms are not connected", hex);
+	print_hex(ants, hex);
 	move_ants(startfullrooms, li_info);
 }
