@@ -6,7 +6,7 @@
 /*   By: mnunnari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/23 22:00:10 by mnunnari          #+#    #+#             */
-/*   Updated: 2017/06/19 17:56:30 by mnunnari         ###   ########.fr       */
+/*   Updated: 2017/06/22 19:57:43 by mnunnari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ int			key_handler(int keycode, void *param)
 	turns = ft_lstat(p.turns, i);
 	if (!turns)
 		exit(0);
+	if (j == 0)
+		ft_printfnl("turn %d", i + 1);
 	turn = ft_lstat((t_list*)turns->content, j);
 	move = (t_move*)turn->content;
 	if (!is_special(move->dest, p.li_info))

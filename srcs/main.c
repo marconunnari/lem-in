@@ -6,29 +6,21 @@
 /*   By: mnunnari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/14 20:37:42 by mnunnari          #+#    #+#             */
-/*   Updated: 2017/06/21 21:01:54 by mnunnari         ###   ########.fr       */
+/*   Updated: 2017/06/22 20:08:11 by mnunnari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+
+t_room		*g_start;
+t_room		*g_end;
 
 void		print_link(t_list *lst)
 {
 	t_link	*link;
 
 	link = (t_link*)lst->content;
-	if (link)
-		ft_printfnl("  room1: %s, room2: %s",
-			link->room1->name, link->room2->name);
-}
-
-void		print_room2(t_list *lst)
-{
-	t_room	*room;
-
-	room = (t_room*)lst->content;
-	ft_printfnl("  name: %s, x %d, y %d ant %ju", room->name,
-			room->x, room->y, room->ant);
+	ft_printfnl("%s-%s", link->room1->name, link->room2->name);
 }
 
 void		print_room(t_list *lst)
@@ -36,8 +28,11 @@ void		print_room(t_list *lst)
 	t_room	*room;
 
 	room = (t_room*)lst->content;
-	ft_printfnl("  name: %s, x %d y %d ant %ju distance %ju", room->name,
-			room->x, room->y, room->ant, room->distance);
+	if (room == g_start)
+		ft_printfnl("##start");
+	if (room == g_end)
+		ft_printfnl("##end");
+	ft_printfnl("%s %d %d", room->name, room->x, room->y);
 }
 
 int			main(int argc, char **argv)
@@ -58,13 +53,12 @@ int			main(int argc, char **argv)
 	parse_links(hex, parse_rooms(hex, li_info));
 	li_info->start->ant = (ants * (ants + 1)) / 2;
 	li_info->start_ant = 1;
-	li_solve(hex, li_info);
-	ft_printfnl("ants: %ju", ants);
-	ft_printfnl("start: %s", li_info->start->name);
-	ft_printfnl("end: %s", li_info->end->name);
-	ft_putendl("rooms:");
+	g_start = li_info->start;
+	g_end = li_info->end;
+	ft_printfnl("%ju", ants);
 	ft_lstiter(hex->rooms, print_room);
-//	ft_putendl("links:");
-//	ft_lstiter(hex->links, print_link);
+	ft_lstiter(hex->links, print_link);
+	ft_putchar('\n');
+	li_solve(hex, li_info);
 	free_hex(hex);
 }

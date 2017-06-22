@@ -6,7 +6,7 @@
 /*   By: mnunnari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 18:32:00 by mnunnari          #+#    #+#             */
-/*   Updated: 2017/06/18 19:24:21 by mnunnari         ###   ########.fr       */
+/*   Updated: 2017/06/22 20:27:09 by mnunnari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,12 @@
 # include "mlx.h"
 
 # define SW 800
+
+typedef	struct	s_move
+{
+	uintmax_t		ant;
+	t_room			*dest;
+}				t_move;
 
 typedef	struct	s_hook_moves
 {

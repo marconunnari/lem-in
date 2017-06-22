@@ -6,7 +6,7 @@
 /*   By: mnunnari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/20 21:13:56 by mnunnari          #+#    #+#             */
-/*   Updated: 2017/06/21 21:15:49 by mnunnari         ###   ########.fr       */
+/*   Updated: 2017/06/22 21:14:36 by mnunnari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,10 @@ void			set_distances(t_room *end)
 
 void			li_solve(t_hex *hex, t_li_info *li_info)
 {
-	t_list		*startfullrooms;
+	t_btree		*startfullrooms;
 
 	(void)hex;
 	set_distances(li_info->end);
-	startfullrooms = NULL;
-	ft_lstaddnew(&startfullrooms, li_info->start, 0);
-	move_ants(startfullrooms, *li_info);
+	startfullrooms = ft_btreenew(li_info->start, 0);
+	move_ants(startfullrooms, li_info);
 }

@@ -6,7 +6,7 @@
 /*   By: mnunnari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/15 18:32:12 by mnunnari          #+#    #+#             */
-/*   Updated: 2017/06/21 21:09:02 by mnunnari         ###   ########.fr       */
+/*   Updated: 2017/06/22 21:14:28 by mnunnari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,16 +44,16 @@ typedef struct	s_li_info
 	uintmax_t	start_ant;
 }				t_li_info;
 
-typedef	struct	s_move
-{
-	uintmax_t		ant;
-	t_room			*dest;
-}				t_move;
-
 typedef enum	e_cmd
 {
 	NONE, START, END
 }				t_cmd;
+
+typedef	struct	s_param
+{
+	t_btree		**newfullrooms;
+	t_li_info	*li_info;
+}				t_param;
 
 void		free_hex(t_hex *hex);
 void		li_error(int cond, char *msg, t_hex *hex);
@@ -62,6 +62,6 @@ char		*parse_rooms(t_hex *hex, t_li_info *li_info);
 void		parse_links(t_hex *hex, char *line);
 t_room		*get_room(t_hex *hex, char *name);
 void			li_solve(t_hex *hex, t_li_info *li_info);
-void			move_ants(t_list *fullrooms, t_li_info li_info);
+void			move_ants(t_btree *fullrooms, t_li_info *li_info);
 void		print_room(t_list *lst);
 #endif
