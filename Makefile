@@ -13,7 +13,8 @@ DOBJS= objs
 DSRCS= srcs
 
 SRCS_FILES= main free utils li_error \
-		parse_rooms parse_ants parse_links li_solve #new#
+		parse_rooms parse_ants parse_links \
+		move_ants li_solve #new#
 
 SRCS = $(addprefix $(DSRCS)/, $(addsuffix .c, $(SRCS_FILES)))
 OBJS = $(SRCS:$(DSRCS)/%.c=$(DOBJS)/%.o)

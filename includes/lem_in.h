@@ -56,4 +56,6 @@ char		*parse_rooms(t_hex *hex, t_li_info *li_info);
 void		parse_links(t_hex *hex, char *line);
 t_room		*get_room(t_hex *hex, char *name);
 void			li_solve(t_hex *hex, t_li_info *li_info);
+void			move_ants(t_list *fullrooms, t_li_info li_info);
+void		print_room(t_list *lst);
 #endif

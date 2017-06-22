@@ -38,9 +38,6 @@ void		print_room(t_list *lst)
 	room = (t_room*)lst->content;
 	ft_printfnl("  name: %s, x %d y %d ant %ju distance %ju", room->name,
 			room->x, room->y, room->ant, room->distance);
-	//ft_putendl("  neighbours");
-	//ft_lstiter(room->neighbours, print_room2);
-	//ft_putendl("");
 }
 
 int			main(int argc, char **argv)
@@ -60,6 +57,7 @@ int			main(int argc, char **argv)
 	li_info->end = NULL;
 	parse_links(hex, parse_rooms(hex, li_info));
 	li_info->start->ant = (ants * (ants + 1)) / 2;
+	li_info->start_ant = 1;
 	li_solve(hex, li_info);
 	ft_printfnl("ants: %ju", ants);
 	ft_printfnl("start: %s", li_info->start->name);
