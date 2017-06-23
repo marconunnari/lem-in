@@ -34,7 +34,7 @@ t_list			*get_next_rooms(t_room *room, t_li_info *li_info)
 	while (neighbours)
 	{
 		neighbour = (t_room*)neighbours->content;
-		if (neighbour != li_info->start &&
+		if (neighbour != li_info->start && neighbour->distance &&
 			(neighbour->ant == 0 || neighbour == li_info->end) &&
 			(min_distance == 0 || neighbour->distance < min_distance))
 			min_distance = neighbour->distance;
@@ -47,7 +47,7 @@ t_list			*get_next_rooms(t_room *room, t_li_info *li_info)
 	while (neighbours)
 	{
 		neighbour = (t_room*)neighbours->content;
-		if (neighbour != li_info->start &&
+		if (neighbour != li_info->start && neighbour->distance &&
 			(neighbour->ant == 0 || neighbour == li_info->end) &&
 			(neighbour->distance <= //== min_distance)) //<=
 			(min_distance + li_info->total_ants - li_info->start_ant)))
@@ -64,9 +64,7 @@ void			move_ant_from_start(t_btree **newfullrooms, t_li_info *li_info)
 {
 	t_list		*nexts;
 	t_room		*next;
-	int			first;
 
-	first = 1;
 	nexts = get_next_rooms(li_info->start, li_info);
 	if (!nexts)
 		return ft_btreeaddnew(newfullrooms, li_info->start, 0, cmprooms);
