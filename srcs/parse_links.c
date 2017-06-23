@@ -17,6 +17,7 @@ static int	already_neighbours(t_room *room1, t_room *room2)
 	t_list		*neighbours;
 	t_room		*room;
 
+	neighbours = NULL;
 	neighbours = room1->neighbours;
 	while (neighbours)
 	{
@@ -30,16 +31,10 @@ static int	already_neighbours(t_room *room1, t_room *room2)
 
 static void	make_neighbours(t_room *room1, t_room *room2)
 {
-	t_list	*new;
-
 	if (already_neighbours(room1, room2))
 		return ;
-	new = (t_list*)malloc(sizeof(t_list));
-	new->content = room2;
-	ft_lstadd(&room1->neighbours, new);
-	new = (t_list*)malloc(sizeof(t_list));
-	new->content = room1;
-	ft_lstadd(&room2->neighbours, new);
+	ft_lstaddnew(&room1->neighbours, room2, 0);
+	ft_lstaddnew(&room2->neighbours, room1, 0);
 }
 
 static void	parse_link(char *line, t_hex *hex)
@@ -51,8 +46,10 @@ static void	parse_link(char *line, t_hex *hex)
 
 	split = ft_strsplit(line, '-');
 	li_error(ft_arrlen((void**)split) != 2, "wrong number of infos for link", hex);
-	li_error((room1 = get_room(hex, split[0])) == NULL, "room specified by link doesnt't exits", hex);
-	li_error((room2 = get_room(hex, split[1])) == NULL, "room specified by link doesnt't exits", hex);
+	room1 = get_room(hex, split[0]);
+	li_error(room1 == NULL, "room specified by link doesnt't exits", hex);
+	room2 = get_room(hex, split[1]);
+	li_error(room2 == NULL, "room specified by link doesnt't exits", hex);
 	link = (t_link*)malloc(sizeof(t_link));
 	link->room1 = room1;
 	link->room2 = room2;

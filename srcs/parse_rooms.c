@@ -65,6 +65,7 @@ char		*parse_rooms(t_hex *hex, t_li_info *li_info)
 				cmd = START;
 			if (ft_strequ(line, "##end"))
 				cmd = END;
+			free(line);
 			continue;
 		}
 		if (!parse_room(line, hex))

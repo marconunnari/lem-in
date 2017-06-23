@@ -52,18 +52,20 @@ int			main(int argc, char **argv)
 	(void)argv;
 	li_error(argc > 1, "too many arguments", NULL);
 	ants = parse_ants();
+	(void)ants;
 	hex = (t_hex*)malloc(sizeof(t_hex));
 	hex->rooms = NULL;
 	hex->links = NULL;
 	li_info = (t_li_info*)malloc(sizeof(t_li_info));
 	li_info->start = NULL;
 	li_info->end = NULL;
-	parse_links(hex, parse_rooms(hex, li_info));
-	li_info->start->ant = (ants * (ants + 1)) / 2;
 	li_info->start_ant = 1;
 	li_info->total_ants = ants;
+	parse_links(hex, parse_rooms(hex, li_info));
 	g_start = li_info->start;
 	g_end = li_info->end;
+	li_info->start->ant = (ants * (ants + 1)) / 2;
 	li_solve(hex, li_info);
 	free_hex(hex);
+	free(li_info);
 }

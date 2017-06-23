@@ -15,6 +15,7 @@
 void		free_room(t_room *room)
 {
 	free(room->name);
+	ft_lstdel(&room->neighbours, NULL);
 	free(room);
 }
 

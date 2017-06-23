@@ -45,6 +45,7 @@ void			set_distances(t_room *end, t_li_info *li_info)
 	{
 		currentlst = ft_lstpop(&queue);
 		room = (t_room*)currentlst->content;
+		free(currentlst);
 		if (room == li_info->start)
 		{
 			g_there_is_path = 1;
@@ -52,6 +53,7 @@ void			set_distances(t_room *end, t_li_info *li_info)
 		}
 		set_neighbours_distances(room, &queue);
 	}
+	ft_lstdel(&queue, NULL);
 }
 
 void			li_solve(t_hex *hex, t_li_info *li_info)
