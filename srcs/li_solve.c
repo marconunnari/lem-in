@@ -6,7 +6,7 @@
 /*   By: mnunnari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/20 21:13:56 by mnunnari          #+#    #+#             */
-/*   Updated: 2017/06/22 22:36:48 by mnunnari         ###   ########.fr       */
+/*   Updated: 2017/06/23 22:10:35 by mnunnari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,15 @@ void			set_distances(t_room *end, t_li_info *li_info)
 		currentlst = ft_lstpop(&queue);
 		room = (t_room*)currentlst->content;
 		if (room == li_info->start)
+		{
 			g_there_is_path = 1;
+			continue;
+		}
 		set_neighbours_distances(room, &queue);
 	}
 }
 
-void			li_solve(uintmax_t ants, t_hex *hex, t_li_info *li_info)
+void			li_solve(t_hex *hex, t_li_info *li_info)
 {
 	t_btree		*startfullrooms;
 
@@ -59,6 +62,6 @@ void			li_solve(uintmax_t ants, t_hex *hex, t_li_info *li_info)
 	set_distances(li_info->end, li_info);
 	startfullrooms = ft_btreenew(li_info->start, 0);
 	li_error(!g_there_is_path, "start and end rooms are not connected", hex);
-	print_hex(ants, hex);
+	print_hex(li_info->total_ants, hex);
 	move_ants(startfullrooms, li_info);
 }

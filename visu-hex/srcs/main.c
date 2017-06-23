@@ -6,7 +6,7 @@
 /*   By: mnunnari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/23 22:00:10 by mnunnari          #+#    #+#             */
-/*   Updated: 2017/06/22 19:57:43 by mnunnari         ###   ########.fr       */
+/*   Updated: 2017/06/23 19:32:34 by mnunnari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,6 @@ int			key_handler(int keycode, void *param)
 	turns = ft_lstat(p.turns, i);
 	if (!turns)
 		exit(0);
-	if (j == 0)
-		ft_printfnl("turn %d", i + 1);
 	turn = ft_lstat((t_list*)turns->content, j);
 	move = (t_move*)turn->content;
 	if (!is_special(move->dest, p.li_info))
@@ -68,6 +66,7 @@ int			key_handler(int keycode, void *param)
 	draw_room(p.image, p.li_info, start_room);
 	draw_room(p.image, p.li_info, move->dest);
 	mlx_put_image_to_window(p.mlx, p.win, p.imageptr, 0, 0);
+	ft_printf("L%ju-%s%c", move->ant, move->dest->name, turn->next ? ' ' : '\n');
 	j = turn->next ? j + 1 : 0;
 	i = turn->next ? i : i + 1;
 	return (0);

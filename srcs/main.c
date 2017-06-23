@@ -6,7 +6,7 @@
 /*   By: mnunnari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/14 20:37:42 by mnunnari          #+#    #+#             */
-/*   Updated: 2017/06/22 22:35:37 by mnunnari         ###   ########.fr       */
+/*   Updated: 2017/06/23 20:40:37 by mnunnari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,9 @@ int			main(int argc, char **argv)
 	parse_links(hex, parse_rooms(hex, li_info));
 	li_info->start->ant = (ants * (ants + 1)) / 2;
 	li_info->start_ant = 1;
+	li_info->total_ants = ants;
 	g_start = li_info->start;
 	g_end = li_info->end;
-	li_solve(ants, hex, li_info);
+	li_solve(hex, li_info);
 	free_hex(hex);
 }
