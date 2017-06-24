@@ -6,7 +6,7 @@
 /*   By: mnunnari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/23 22:00:10 by mnunnari          #+#    #+#             */
-/*   Updated: 2017/06/23 19:32:34 by mnunnari         ###   ########.fr       */
+/*   Updated: 2017/06/24 21:46:20 by mnunnari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,9 @@ int			main(int argc, char **argv)
 	li_info = (t_li_info*)malloc(sizeof(t_li_info));
 	li_info->start = NULL;
 	li_info->end = NULL;
+	li_info->total_ants = ants;
 	parse_links(hex, parse_rooms(hex, li_info));
+	print_hex(hex, li_info);
 	li_info->start->ant = (ants * (ants + 1)) / 2;
 	turns = parse_turns(hex);
 	render(hex, li_info, turns);

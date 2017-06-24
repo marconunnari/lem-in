@@ -6,7 +6,7 @@
 /*   By: mnunnari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/20 21:13:56 by mnunnari          #+#    #+#             */
-/*   Updated: 2017/06/23 22:10:35 by mnunnari         ###   ########.fr       */
+/*   Updated: 2017/06/24 21:45:11 by mnunnari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,6 @@ void			li_solve(t_hex *hex, t_li_info *li_info)
 	set_distances(li_info->end, li_info);
 	startfullrooms = ft_btreenew(li_info->start, 0);
 	li_error(!g_there_is_path, "start and end rooms are not connected", hex);
-	print_hex(li_info->total_ants, hex);
+	print_hex(hex, li_info);
 	move_ants(startfullrooms, li_info);
 }

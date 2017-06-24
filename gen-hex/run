@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-
-if make >/dev/null
-then
-	./gen-hex $@
-fi

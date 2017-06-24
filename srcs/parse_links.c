@@ -6,7 +6,7 @@
 /*   By: mnunnari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/19 18:03:40 by mnunnari          #+#    #+#             */
-/*   Updated: 2017/06/21 17:04:34 by mnunnari         ###   ########.fr       */
+/*   Updated: 2017/06/24 21:11:33 by mnunnari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ static void	parse_link(char *line, t_hex *hex)
 	t_room	*room2;
 
 	split = ft_strsplit(line, '-');
-	li_error(ft_arrlen((void**)split) != 2, "wrong number of infos for link", hex);
+	li_error(ft_arrlen((void**)split) != 2,
+			"wrong number of infos for link", hex);
 	room1 = get_room(hex, split[0]);
 	li_error(room1 == NULL, "room specified by link doesnt't exits", hex);
 	room2 = get_room(hex, split[1]);
@@ -65,7 +66,7 @@ void		parse_links(t_hex *hex, char *line)
 
 	parse_link(line, hex);
 	free(line);
-	while((i = get_next_line(0, &line)) > 0)
+	while ((i = get_next_line(0, &line)) > 0)
 	{
 		if (line[0] == '#')
 			continue;

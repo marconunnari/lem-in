@@ -12,9 +12,9 @@ LFT= -L libft -lft
 DOBJS= objs
 DSRCS= srcs
 
-SRCS_FILES= main free utils li_error \
+SRCS_FILES= main free utils li_error print_hex \
 		parse_rooms parse_ants parse_links \
-		move_ants li_solve #new#
+		move_ants li_solve move_ant_from_start #new#
 
 SRCS = $(addprefix $(DSRCS)/, $(addsuffix .c, $(SRCS_FILES)))
 OBJS = $(SRCS:$(DSRCS)/%.c=$(DOBJS)/%.o)

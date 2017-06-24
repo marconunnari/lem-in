@@ -6,7 +6,7 @@
 /*   By: mnunnari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 17:11:53 by mnunnari          #+#    #+#             */
-/*   Updated: 2017/06/21 17:10:05 by mnunnari         ###   ########.fr       */
+/*   Updated: 2017/06/24 22:10:25 by mnunnari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,18 @@ static void	parse_li_info(t_cmd cmd, t_room *room, t_li_info *li_info)
 		li_info->end = room;
 }
 
+t_cmd		get_cmd(char *line)
+{
+	t_cmd	cmd;
+
+	cmd = NONE;
+	if (ft_strequ(line, "##start"))
+		cmd = START;
+	if (ft_strequ(line, "##end"))
+		cmd = END;
+	return (cmd);
+}
+
 char		*parse_rooms(t_hex *hex, t_li_info *li_info)
 {
 	char		*line;
@@ -57,19 +69,16 @@ char		*parse_rooms(t_hex *hex, t_li_info *li_info)
 	t_cmd		cmd;
 
 	cmd = NONE;
-	while((i = get_next_line(0, &line)) > 0)
+	while ((i = get_next_line(0, &line)) > 0)
 	{
 		if (line[0] == '#')
 		{
-			if (ft_strequ(line, "##start"))
-				cmd = START;
-			if (ft_strequ(line, "##end"))
-				cmd = END;
+			cmd = get_cmd(line);
 			free(line);
 			continue;
 		}
 		if (!parse_room(line, hex))
-			break;
+			break ;
 		parse_li_info(cmd, (t_room*)hex->rooms->content, li_info);
 		free(line);
 		cmd = NONE;

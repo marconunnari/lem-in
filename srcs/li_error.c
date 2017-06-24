@@ -6,7 +6,7 @@
 /*   By: mnunnari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 17:52:57 by mnunnari          #+#    #+#             */
-/*   Updated: 2017/06/16 17:53:05 by mnunnari         ###   ########.fr       */
+/*   Updated: 2017/06/24 22:11:10 by mnunnari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 void		li_error(int cond, char *msg, t_hex *hex)
 {
+	(void)msg;
 	if (!cond)
-		return;
+		return ;
 	if (hex)
 		free_hex(hex);
-	ft_error(msg, 1);
+	ft_error("ERROR", 1);
 }

@@ -5,3 +5,4 @@ gen-hex/gen-hex
 visu-hex/tests
 gen_hex
 visu_hex
+*.dSYM*

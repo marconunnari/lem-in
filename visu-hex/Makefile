@@ -6,7 +6,7 @@
 #    By: mnunnari <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/06/17 16:59:08 by mnunnari          #+#    #+#              #
-#    Updated: 2017/06/19 18:05:40 by mnunnari         ###   ########.fr        #
+#    Updated: 2017/06/24 21:44:10 by mnunnari         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ include $(DLIBMLX)/lmlx.mk
 DOBJS= objs
 DSRCS= srcs
 
-LI_SRCS_FILES= li_error free utils parse_rooms parse_ants  #new#
+LI_SRCS_FILES= li_error print_hex free utils parse_rooms parse_ants  #new#
 LI_SRCS = $(addprefix ../$(DSRCS)/, $(addsuffix .c, $(LI_SRCS_FILES)))
 LI_OBJS = $(LI_SRCS:../$(DSRCS)/%.c=$(DOBJS)/%.o)
 

@@ -6,7 +6,7 @@
 /*   By: mnunnari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/21 17:05:10 by mnunnari          #+#    #+#             */
-/*   Updated: 2017/06/21 17:05:12 by mnunnari         ###   ########.fr       */
+/*   Updated: 2017/06/24 21:04:45 by mnunnari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void		free_hex(t_hex *hex)
 	t_link		*link;
 	t_list		*tmp;
 
-	while(hex->rooms)
+	while (hex->rooms)
 	{
 		tmp = hex->rooms;
 		room = (t_room*)hex->rooms->content;
@@ -33,7 +33,7 @@ void		free_hex(t_hex *hex)
 		hex->rooms = hex->rooms->next;
 		free(tmp);
 	}
-	while(hex->links)
+	while (hex->links)
 	{
 		tmp = hex->links;
 		link = (t_link*)hex->links->content;
